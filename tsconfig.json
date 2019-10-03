@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
-    "outDir": "build"
+    "outDir": "examples/node_modules/ts-transformer-mongoose"
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.test.ts"]
