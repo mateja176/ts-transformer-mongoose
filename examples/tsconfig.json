@@ -1,4 +1,3 @@
 {
-  "includes": ["./**/*"],
-  "plugins": [{ "transform": "ts-transformer-mongoose" }]
+  "plugins": [{ "transform": "ts-transformer-keys/transformer" }]
 }
