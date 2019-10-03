@@ -15,7 +15,6 @@
   "author": "Mateja Petrovic <mateja176@gmail.com> (https://github.com/mateja176)",
   "license": "MIT",
   "dependencies": {
-    "ttypescript": "^1.5.7",
     "typescript": "^3.6.3"
   },
   "devDependencies": {

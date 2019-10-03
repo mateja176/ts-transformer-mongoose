@@ -1,0 +1,16 @@
+{
+  "name": "examples",
+  "version": "0.1.0",
+  "description": "",
+  "main": "Person.js",
+  "scripts": {
+    "start": "ttsc",
+    "dev": "ttsc --watch"
+  },
+  "keywords": [],
+  "author": "Mateja Petrovic <mateja176@gmail.com> (https://github.com/mateja176)",
+  "license": "MIT",
+  "dependencies": {
+    "ttypescript": "^1.5.7"
+  }
+}

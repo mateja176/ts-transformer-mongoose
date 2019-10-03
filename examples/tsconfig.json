@@ -1,4 +1,4 @@
 {
-  "includes": ["examples/**/*"],
+  "includes": ["./**/*"],
   "plugins": [{ "transform": "./build/ts-transformer-mongoose" }]
 }
