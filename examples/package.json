@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "ts-transformer-keys": "^0.3.5",
-    "ttypescript": "^1.5.7"
+    "ttypescript": "^1.5.7",
+    "typescript": "^3.6.3"
   }
 }
