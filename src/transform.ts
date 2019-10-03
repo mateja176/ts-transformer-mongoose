@@ -1,9 +1,7 @@
 /* eslint-disable indent */
 
-import * as path from 'path';
 import * as ts from 'typescript';
 
-const indexTs = path.join(__dirname, 'index.ts');
 const isKeysCallExpression = (
   node: ts.Node,
   typeChecker: ts.TypeChecker,
@@ -19,7 +17,6 @@ const isKeysCallExpression = (
   return (
     !!declaration &&
     !ts.isJSDocSignature(declaration) &&
-    path.join(declaration.getSourceFile().fileName) === indexTs &&
     !!declaration.name &&
     declaration.name.getText() === 'keys'
   );
