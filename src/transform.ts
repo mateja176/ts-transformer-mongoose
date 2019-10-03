@@ -2,39 +2,12 @@
 
 import * as ts from 'typescript';
 
-const isKeysCallExpression = (
-  node: ts.Node,
-  typeChecker: ts.TypeChecker,
-): node is ts.CallExpression => {
-  if (!ts.isCallExpression(node)) {
-    return false;
-  }
-  const signature = typeChecker.getResolvedSignature(node);
-  if (typeof signature === 'undefined') {
-    return false;
-  }
-  const { declaration } = signature;
-  return (
-    !!declaration &&
-    !ts.isJSDocSignature(declaration) &&
-    !!declaration.name &&
-    declaration.name.getText() === 'keys'
-  );
-};
-
 const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
   const typeChecker = program.getTypeChecker();
-  if (!isKeysCallExpression(node, typeChecker)) {
+  if (!ts.isInterfaceDeclaration(node)) {
     return node;
   }
-  if (!node.typeArguments) {
-    return ts.createArrayLiteral([]);
-  }
-  const type = typeChecker.getTypeFromTypeNode(node.typeArguments[0]);
-  const properties = typeChecker.getPropertiesOfType(type);
-  return ts.createArrayLiteral(
-    properties.map(property => ts.createLiteral(property.name)),
-  );
+  return ts.createStringLiteral(node.name.text);
 };
 
 const visitNodeAndChildren = <N extends ts.Node>(
