@@ -14,6 +14,11 @@ resolve@^1.9.0:
   dependencies:
     path-parse "^1.0.6"
 
+ts-transformer-keys@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/ts-transformer-keys/-/ts-transformer-keys-0.3.5.tgz#e9683fdb43e7a0b7b13bce910a546380fd7ac7ee"
+  integrity sha512-5NYR//bSkMjeO6P72Nn754MW8ELHx7fIueQ7W8F52ErPb7iCDMU/tBiXHpNsUCDOLFKNca3DSgyq4CX+BxANug==
+
 ttypescript@^1.5.7:
   version "1.5.7"
   resolved "https://registry.yarnpkg.com/ttypescript/-/ttypescript-1.5.7.tgz#76bb96765b331194b58a4e7d79fae82b886fc29a"
