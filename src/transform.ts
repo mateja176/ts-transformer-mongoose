@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 
+import { capitalize } from 'lodash';
 import * as ts from 'typescript';
 
 const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
@@ -10,7 +11,6 @@ const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
 
   const type = typeChecker.getTypeAtLocation(node);
 
-  // TODO unsupported cases: array type (convert array to tuple)
   const schema = ts.createObjectLiteral(
     type.getProperties().map(property => {
       const propertyType = property.valueDeclaration
@@ -18,18 +18,13 @@ const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
         .replace(/^\w+: /, '')
         .replace(/;$/, '')
         .replace(/;/g, ',')
+        .replace(/^\w/g, capitalize)
         .replace(/:\s*\w/g, match =>
           match.slice(0, -1).concat(match.slice(-1).toUpperCase()),
-        );
+        )
+        .replace(/(\w+)\[\]/g, (match, arrayType) => `[${arrayType}]`);
 
-      const propertyTypeConstructor = propertyType
-        .charAt(0)
-        .toUpperCase()
-        .concat(propertyType.slice(1));
-
-      const propertyTypeIdentifier = ts.createIdentifier(
-        propertyTypeConstructor,
-      );
+      const propertyTypeIdentifier = ts.createIdentifier(propertyType);
 
       return ts.createPropertyAssignment(
         property.getName(),
