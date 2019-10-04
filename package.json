@@ -4,12 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "examples": "ttsc -p ttsconfig.json",
-    "examples:watch": "yarn test --watch",
     "build": "tsc",
-    "build:watch": "yarn build --watch",
-    "test": "mocha -r ts-node/register src/**/*.test.ts",
-    "test:watch": "yarn test --watch"
+    "build:watch": "yarn build --watch"
   },
   "keywords": [],
   "author": "Mateja Petrovic <mateja176@gmail.com> (https://github.com/mateja176)",
