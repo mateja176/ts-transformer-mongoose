@@ -15,8 +15,9 @@ const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
     type.getProperties().map(property => {
       const propertyType = property.valueDeclaration
         .getText()
-        .split(': ')[1]
-        .slice(0, -1);
+        .replace(/^\w+: /, '')
+        .replace(/;$/, '')
+        .replace(/;/g, ',');
 
       const propertyTypeConstructor = propertyType
         .charAt(0)
