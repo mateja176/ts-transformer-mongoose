@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 
-import { capitalize } from 'lodash';
 import * as ts from 'typescript';
 
 const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
@@ -18,7 +17,12 @@ const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
       .replace(/^\w+: /, '')
       .replace(/;$/, '')
       .replace(/;/g, ',')
-      .replace(/^\w/g, capitalize)
+      .replace(/^\w/g, match =>
+        match
+          .charAt(0)
+          .toUpperCase()
+          .concat(match.slice(1)),
+      )
       .replace(/:\s*\w/g, match =>
         match.slice(0, -1).concat(match.slice(-1).toUpperCase()),
       )
