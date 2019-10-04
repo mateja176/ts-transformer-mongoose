@@ -11,29 +11,26 @@ const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
 
   const type = typeChecker.getTypeAtLocation(node);
 
-  const schema = ts.createObjectLiteral(
-    type.getProperties().map(property => {
-      const propertyType = property.valueDeclaration
-        .getText()
-        .replace(/^\w+: /, '')
-        .replace(/;$/, '')
-        .replace(/;/g, ',')
-        .replace(/^\w/g, capitalize)
-        .replace(/:\s*\w/g, match =>
-          match.slice(0, -1).concat(match.slice(-1).toUpperCase()),
-        )
-        .replace(/(\w+)\[\]/g, (match, arrayType) => `[${arrayType}]`);
+  const schema = type.getProperties().map(property => {
+    const prop = property.valueDeclaration
+      .getText()
+      .replace(/^\w+: /, '')
+      .replace(/;$/, '')
+      .replace(/;/g, ',')
+      .replace(/^\w/g, capitalize)
+      .replace(/:\s*\w/g, match =>
+        match.slice(0, -1).concat(match.slice(-1).toUpperCase()),
+      )
+      .replace(/(\w+)\[\]/g, (match, arrayType) => `[${arrayType}]`);
 
-      const propertyTypeIdentifier = ts.createIdentifier(propertyType);
+    return `${property.getName()}: ${prop}`;
+  });
 
-      return ts.createPropertyAssignment(
-        property.getName(),
-        propertyTypeIdentifier,
-      );
-    }),
+  return ts.createIdentifier(
+    `export const ${node.name.getText()} = {
+  ${schema}
+}`,
   );
-
-  return schema;
 };
 
 const visitNodeAndChildren = <N extends ts.Node>(
