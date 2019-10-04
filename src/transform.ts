@@ -4,10 +4,11 @@ import { capitalize } from 'lodash';
 import * as ts from 'typescript';
 
 const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
-  const typeChecker = program.getTypeChecker();
   if (!ts.isInterfaceDeclaration(node)) {
     return node;
   }
+
+  const typeChecker = program.getTypeChecker();
 
   const type = typeChecker.getTypeAtLocation(node);
 
