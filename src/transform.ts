@@ -7,7 +7,34 @@ const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
   if (!ts.isInterfaceDeclaration(node)) {
     return node;
   }
-  return ts.createStringLiteral(node.name.text);
+
+  const type = typeChecker.getTypeAtLocation(node);
+
+  // TODO unsupported cases: array type (convert array to tuple), object literals type
+  const schema = ts.createObjectLiteral(
+    type.getProperties().map(property => {
+      const propertyType = property.valueDeclaration
+        .getText()
+        .split(': ')[1]
+        .slice(0, -1);
+
+      const propertyTypeConstructor = propertyType
+        .charAt(0)
+        .toUpperCase()
+        .concat(propertyType.slice(1));
+
+      const propertyTypeIdentifier = ts.createIdentifier(
+        propertyTypeConstructor,
+      );
+
+      return ts.createPropertyAssignment(
+        property.getName(),
+        propertyTypeIdentifier,
+      );
+    }),
+  );
+
+  return schema;
 };
 
 const visitNodeAndChildren = <N extends ts.Node>(
