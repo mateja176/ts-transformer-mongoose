@@ -10,14 +10,17 @@ const visitNode = (node: ts.Node, program: ts.Program): ts.Node => {
 
   const type = typeChecker.getTypeAtLocation(node);
 
-  // TODO unsupported cases: array type (convert array to tuple), object literals type
+  // TODO unsupported cases: array type (convert array to tuple)
   const schema = ts.createObjectLiteral(
     type.getProperties().map(property => {
       const propertyType = property.valueDeclaration
         .getText()
         .replace(/^\w+: /, '')
         .replace(/;$/, '')
-        .replace(/;/g, ',');
+        .replace(/;/g, ',')
+        .replace(/:\s*\w/g, match =>
+          match.slice(0, -1).concat(match.slice(-1).toUpperCase()),
+        );
 
       const propertyTypeConstructor = propertyType
         .charAt(0)
