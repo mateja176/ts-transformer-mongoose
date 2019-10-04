@@ -1,11 +1,12 @@
 {
   "name": "ts-transformer-mongoose",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "build:watch": "yarn build --watch"
+    "build:watch": "yarn build --watch",
+    "deploy": "yarn version --minor && cp package.json build && npm publish build"
   },
   "keywords": [],
   "author": "Mateja Petrovic <mateja176@gmail.com> (https://github.com/mateja176)",
